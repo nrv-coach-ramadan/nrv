@@ -14,18 +14,18 @@ let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(!S||!S.done||!Array.isArray(S.log)||S.log.some(e=>e.n===undefined))S={done:{},eaten:{},log:sample};
 let lang='ar';try{const l=localStorage.getItem(LKEY);if(l&&LANGS[l])lang=l;}catch(e){}
 let storageOk=true;
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOk=false}};
+const save=()=>{if(typeof cloudOn==='function'&&cloudOn()){syncDirty('s');return}try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){storageOk=false}};
 
 Object.assign(T.ar,{nCoach:'المدرب',coachT:'لوحة المدرب',addEx:'أضف تمرين',exName:'اسم التمرين',sets:'مجموعات',reps:'تكرارات',noteF:'ملاحظة (اختياري)',addBtn:'أضف التمرين',rm:'احذف',removed:n=>`اتحذف «${n}»`,undo:'تراجع',addDay:'أضف يوم',dayName:'اسم اليوم',rmDay:'احذف اليوم',viewAs:'شوف البرنامج من ناحية العميل',noProg:'لسه مفيش برنامج للعميل ده. المدرب يضيفه من تبويب المدرب.',coachNote:'محاكاة على جهازك: أي تعديل هنا بيظهر في شاشة العميل. مفيش حسابات حقيقية ولا بيانات حقيقية.',resetP:'رجّع البرامج للأمثلة',sureP:'أكيد، رجّع الأمثلة',badEx:'اكتب اسم التمرين، وعدد مجموعات من 1 لـ 20، وعدد التكرارات.',emptyDay:'اليوم ده فاضي. أضف تمرين من تحت.',toCoach:'افتح لوحة المدرب لتعديل البرنامج',client:'العميل (وهمي)',noDay:'مفيش أيام لسه. اضغط «أضف يوم» الأول.',editEx:'تعديل التمارين'});
-Object.assign(T.ar,{exLib:'مكتبة التمارين',catOpen:'＋ اختر من المكتبة',catClose:'إغلاق المكتبة',catW:'تمارين الحديد',catC:'كارديو',catS:'ابحث عن تمرين',allM:'كل العضلات',allE:'كل الأجهزة',pickIt:'اختر',min:'دقيقة',mins:'المدة (دقيقة)',addSel:'أضف للبرنامج',cancel:'إلغاء',catNone:'لا توجد نتائج',catCount:(n,t)=>`${n} من ${t} تمرين`,catAdded:n=>`تمت إضافة: ${n}`,catNote:'قائمة عينة لأشهر التمارين (أسماء فقط، بدون فيديو). تقدر تضيف تمرين خاص من الأسفل.',customEx:'أو أضف تمرين خاص',badMin:'اكتب مدة من 1 إلى 240 دقيقة'});
-Object.assign(T.en,{exLib:'Exercise library',catOpen:'＋ Pick from library',catClose:'Close library',catW:'Weights',catC:'Cardio',catS:'Search exercises',allM:'All muscles',allE:'All equipment',pickIt:'Pick',min:'min',mins:'Duration (min)',addSel:'Add to program',cancel:'Cancel',catNone:'No results',catCount:(n,t)=>`${n} of ${t} exercises`,catAdded:n=>`Added: ${n}`,catNote:'Sample list of common exercises (names only, no videos). You can still add a custom one below.',customEx:'Or add a custom exercise',badMin:'Enter 1 to 240 minutes'});
+Object.assign(T.ar,{sy:{title:'مزامنة بين الموبايلات (تجربة)',create:'اعمل كود غرفة جديد',join:'ادخل بالكود',joinL:'كود الغرفة',code:'كود الغرفة (ابعته للي هيجرّب معاك):',leave:'اخرج من الغرفة',warn:'أي حد معاه الكود يقدر يشوف ويعدّل. بيانات وهمية بس.',synced:'متزامن',offline:'مفيش اتصال، هيحاول تاني',updated:'اتحدّث من جهاز تاني',conflict:'اتحدّث من جهاز تاني قبل تعديلك',bad:'الكود غلط',none:'الكود ده مش موجود'},exLib:'مكتبة التمارين',catOpen:'＋ اختر من المكتبة',catClose:'إغلاق المكتبة',catW:'تمارين الحديد',catC:'كارديو',catS:'ابحث عن تمرين',allM:'كل العضلات',allE:'كل الأجهزة',pickIt:'اختر',min:'دقيقة',mins:'المدة (دقيقة)',addSel:'أضف للبرنامج',cancel:'إلغاء',catNone:'لا توجد نتائج',catCount:(n,t)=>`${n} من ${t} تمرين`,catAdded:n=>`تمت إضافة: ${n}`,catNote:'قائمة عينة لأشهر التمارين (أسماء فقط، بدون فيديو). تقدر تضيف تمرين خاص من الأسفل.',customEx:'أو أضف تمرين خاص',badMin:'اكتب مدة من 1 إلى 240 دقيقة'});
+Object.assign(T.en,{sy:{title:'Sync between phones (demo)',create:'Create a new room code',join:'Join with code',joinL:'Room code',code:'Room code (send it to your tester):',leave:'Leave room',warn:'Anyone with the code can see and edit. Fictional data only.',synced:'Synced',offline:'No connection, will retry',updated:'Updated from another device',conflict:'Another device changed it first',bad:'Invalid code',none:'No room with that code'},exLib:'Exercise library',catOpen:'＋ Pick from library',catClose:'Close library',catW:'Weights',catC:'Cardio',catS:'Search exercises',allM:'All muscles',allE:'All equipment',pickIt:'Pick',min:'min',mins:'Duration (min)',addSel:'Add to program',cancel:'Cancel',catNone:'No results',catCount:(n,t)=>`${n} of ${t} exercises`,catAdded:n=>`Added: ${n}`,catNote:'Sample list of common exercises (names only, no videos). You can still add a custom one below.',customEx:'Or add a custom exercise',badMin:'Enter 1 to 240 minutes'});
 Object.assign(T.en,{nCoach:'Coach',coachT:'Coach view',addEx:'Add exercise',exName:'Exercise name',sets:'Sets',reps:'Reps',noteF:'Note (optional)',addBtn:'Add exercise',rm:'Remove',removed:n=>`Removed "${n}"`,undo:'Undo',addDay:'Add day',dayName:'Day name',rmDay:'Remove day',viewAs:"See this program as the client",noProg:"This client has no program yet. The coach adds one from the Coach tab.",coachNote:'Simulation on your device: changes here show up in the client view. No real accounts or real data.',resetP:'Reset programs to samples',sureP:'Yes, reset to samples',badEx:'Enter an exercise name, sets from 1 to 20, and reps.',emptyDay:'This day is empty. Add an exercise below.',toCoach:'Open coach view to edit this program',client:'Client (fictional)',noDay:'No days yet. Tap "Add day" first.',editEx:'Edit exercises'});
 const K2='coach.v2';
 const seedProg=()=>days.map(d=>({id:d.id,name:d.t,ex:d.ex.map(e=>{const m=String(e[2]).split('×').map(x=>x.trim());return {id:e[0],name:e[1],sets:+m[0],reps:m[1],note:e[3]}})}));
 const seedP=()=>({client:'c1',progs:{c1:seedProg(),c2:[]}});
 let P;try{P=JSON.parse(localStorage.getItem(K2))}catch(e){}
 if(!P||!P.progs||!P.progs.c1||!P.progs.c2)P=seedP();
-const saveP=()=>{try{localStorage.setItem(K2,JSON.stringify(P))}catch(e){storageOk=false}};
+const saveP=()=>{if(typeof cloudOn==='function'&&cloudOn()){syncDirty('p');return}try{localStorage.setItem(K2,JSON.stringify(P))}catch(e){storageOk=false}};
 const clients=[{id:'c1',name:{ar:'عميل تجريبي ١',en:'Demo client 1'}},{id:'c2',name:{ar:'عميل تجريبي ٢',en:'Demo client 2'}}];
 const nm=x=>typeof x==='string'?x:(x&&x[lang])||'';
 const prog=()=>P.progs[P.client]||[];
@@ -76,7 +76,7 @@ const t=()=>T[lang];
 const ico={coach:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',home:'<path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-5v-6h-4v6H5a1 1 0 0 1-1-1z"/>',train:'<path d="M3 9v6M6 7v10M18 7v10M21 9v6M6 12h12"/>',food:'<path d="M7 3v8a2 2 0 0 0 2 2v8M11 3v8M5 3v8M17 3c-2 2-2 6 0 8v10"/>',chart:'<path d="M4 20V4M4 20h16M8 15l4-4 3 3 5-6"/>'};
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const L=o=>o[lang];
-const topbar=(ti,s)=>`<header class="top"><div class="logo">N</div><div class="tt"><div class="title">${esc(ti)}</div>${s?`<div class="sub">${esc(s)}</div>`:''}</div><div class="langs"><button data-role="1" class="rolebtn" aria-label="role">${t().role[P.role==="client"?"client":"coach"]}</button>${Object.keys(LANGS).map(k=>`<button data-lang="${k}" class="${k===lang?'on':''}" aria-label="${LANGS[k].name}">${k.toUpperCase()}</button>`).join('')}</div></header>`;
+const topbar=(ti,s)=>`<header class="top"><div class="logo">N</div><div class="tt"><div class="title">${esc(ti)}</div>${s?`<div class="sub">${esc(s)}</div>`:''}</div><div class="langs">${cloudOn()?'':`<button data-role="1" class="rolebtn" aria-label="role">${t().role[P.role==="client"?"client":"coach"]}</button>`}${Object.keys(LANGS).map(k=>`<button data-lang="${k}" class="${k===lang?'on':''}" aria-label="${LANGS[k].name}">${k.toUpperCase()}</button>`).join('')}</div></header>`;
 const bar=(v,m)=>`<div class="bar"><i style="width:${Math.min(100,v/m*100)}%"></i></div>`;
 let route=(location.hash||'#/').slice(1)||'/',day='d1',opened=null,msg={w:'',a:'',sure:false,sureP:false};
 const label=e=>e.s?t().w(e.n):t().entry(e.n);
@@ -84,8 +84,8 @@ function home(){const T_=t(),ex_=allExF(),done=ex_.filter(e=>S.done[e.id]).lengt
 return topbar(T_.hello,T_.demo)+`<div class="body"><a class="hero" href="#/training"><div><div class="k">${T_.todayW}</div><div class="h">${nx?esc(nm(nx.name)):'-'}</div><div class="k">${nx?nx.ex.length:0} ${T_.ex}</div></div><div class="ring" style="background:conic-gradient(#fff ${pct*3.6}deg,rgba(255,255,255,.3) 0)"><span>${pct}%</span></div></a>
 <div class="grid"><a class="card" href="#/food"><div class="k">${T_.todayF}</div><div class="big">${Math.round(kEat())}<small> / ${Math.round(kTot())}</small></div>${bar(kEat(),kTot()||1)}<div class="k">${T_.kcal}</div></a>
 <a class="card" href="#/measures"><div class="k">${T_.lastW}</div><div class="big">${l?l.w:'-'}<small> ${T_.kg}</small></div><div class="k">${l?T_.waist+' '+l.a+' '+T_.cm:''}</div></a></div>
-<div class="note">${T_.note}</div></div>`}
-const clientPick=()=>`<div class="pick" role="group" aria-label="${esc(t().client)}">${clients.map(c=>`<button data-client="${c.id}" class="${c.id===P.client?'on':''}">${esc(L(c.name))}</button>`).join('')}</div>`;
+<div class="note">${T_.note}</div>${syncCard()}</div>`}
+const clientPick=()=>cloudOn()&&!isCoach()?'':`<div class="pick" role="group" aria-label="${esc(t().client)}">${clients.map(c=>`<button data-client="${c.id}" class="${c.id===P.client?'on':''}">${esc(L(c.name))}</button>`).join('')}</div>`;
 function training(){const T_=t(),pr=prog(),d=pr.find(x=>x.id===day)||pr[0],cl=clients.find(c=>c.id===P.client);
 const tolink=isCoach()?`<a class="btn sec lnk" href="#/coach">${T_.toCoach}</a>`:'';
 if(!d)return topbar(T_.prog,L(cl.name))+`<div class="body">${clientPick()}<div class="card note">${T_.noProg}</div>${tolink}</div>`;
@@ -136,8 +136,9 @@ return topbar(T_.meas,l?T_.lastWeight(l.w):'')+`<div class="body">${Lg.length>=2
 <div class="card form"><div class="name">${T_.newM}</div><label>${T_.wIn}<input id="w" inputmode="decimal" value="${esc(msg.w)}"></label><label>${T_.aIn}<input id="a" inputmode="decimal" value="${esc(msg.a)}"></label><button class="btn" id="add">${T_.save}</button></div>
 <div class="h2">${T_.log}</div>${[...Lg].reverse().map(e=>`<div class="card log"><div><div class="name">${esc(label(e))}</div><div class="k">${T_.waist} ${e.a} ${T_.cm}</div></div><div class="kcal">${e.w}<small>${T_.kg}</small></div></div>`).join('')}
 <div class="actions">${msg.sure?`<button class="btn sec" id="reset">${T_.sure}</button><button class="btn ghost" id="no">${T_.no}</button>`:`<button class="btn ghost" id="ask">${T_.reset}</button>`}</div></div>`}
-function render(){if(!isCoach()&&route==='/coach'){route='/training';try{history.replaceState(null,'','#/training')}catch(e){}}
-const T_=t(),r={'/':home,'/training':training,'/coach':coach,'/food':food,'/measures':measures}[route]||home;
+function render(){if(typeof gate==='function'&&gate()){document.getElementById('app').innerHTML=gateHtml();document.documentElement.lang=lang;document.documentElement.dir=LANGS[lang].dir;return}
+if(!isCoach()&&route==='/coach'){route='/training';try{history.replaceState(null,'','#/training')}catch(e){}}
+const T_=t(),r=cloudOn()&&isCoach()&&!clients.length?emptyHtml:({'/':home,'/training':training,'/coach':coach,'/food':food,'/measures':measures}[route]||home);
 document.documentElement.lang=lang;document.documentElement.dir=LANGS[lang].dir;
 const nav=[['/','home',T_.nHome],['/training','train',T_.nTrain],...(isCoach()?[['/coach','coach',T_.nCoach]]:[]),['/food','food',T_.nFood],['/measures','chart',T_.nMeas]];
 document.getElementById('app').innerHTML=`<div class="screen">${r()}${storageOk?'':`<div class="note">${T_.nostore}</div>`}</div><nav>${nav.map(n=>`<a href="#${n[0]}" class="${route===n[0]?'on':''}"><svg viewBox="0 0 24 24" aria-hidden="true">${ico[n[1]]}</svg><span>${n[2]}</span></a>`).join('')}</nav>`;}
@@ -155,11 +156,12 @@ else if(b.dataset.rmmeal){const pl=P.meals[P.client],ix=pl.findIndex(x=>x.id===b
 else if(b.id==='badd'){const f=document.getElementById('bsel').value,g=parseFloat(document.getElementById('bg').value.replace(',','.'));if(!f||!(g>0&&g<=5000)){alert(t().badEx2);return}bld.items.push({f,g});}
 else if(b.dataset.brm){bld.items.splice(+b.dataset.brm,1)}
 else if(b.id==='btoplan'){const nmv=document.getElementById('bname').value.trim()||t().myMeal;P.meals[P.client].push({id:uid(),n:nmv,time:'',items:bld.items.map(i=>({...i}))});bld={items:[],name:''};fsub='plan';saveP()}
-else if(b.dataset.client){P.client=b.dataset.client;day=null;opened=null;saveP()}
+else if(b.dataset.client){P.client=b.dataset.client;day=null;opened=null;if(cloudOn())cloudSelect(P.client);else saveP()}
 else if(b.dataset.addday){const pr=P.progs[P.client];const id=uid();pr.push({id,name:t().day+' '+(pr.length+1),ex:[]});day=id;saveP()}
 else if(b.dataset.rmday){const pr=P.progs[P.client],ix=pr.findIndex(x=>x.id===b.dataset.rmday);if(ix<0)return;const it=pr.splice(ix,1)[0];undo={type:'day',item:it,idx:ix,client:P.client,label:nm(it.name)};day=null;saveP()}
 else if(b.dataset.rm){const d=prog().find(x=>x.id===day)||prog()[0];if(!d)return;const ix=d.ex.findIndex(x=>x.id===b.dataset.rm);if(ix<0)return;const it=d.ex.splice(ix,1)[0];undo={type:'ex',item:it,idx:ix,dayId:d.id,client:P.client,label:nm(it.name)};saveP()}
 else if(b.id==='undo'&&undo){const pr=P.progs[undo.client];if(undo.type==='meal'){const pl=P.meals[undo.client];pl.splice(Math.min(undo.idx,pl.length),0,undo.item)}else if(undo.type==='day'){pr.splice(Math.min(undo.idx,pr.length),0,undo.item);day=undo.item.id}else{const d=pr.find(x=>x.id===undo.dayId);if(d)d.ex.splice(Math.min(undo.idx,d.ex.length),0,undo.item)}undo=null;saveP()}
+else if(b.dataset.sy){syAct(b.dataset.sy).then(render);return}
 else if(b.dataset.copen){cat.open=true;cat.msg=''}
 else if(b.dataset.cclose){cat.open=false;cat.sel=null}
 else if(b.dataset.ct){cat.t=b.dataset.ct;cat.m=cat.e='';cat.sel=null}
@@ -197,4 +199,4 @@ else{const e=d.ex.find(x=>x.id===i.dataset.id);if(!e)return;
  else if(f==='note')e.note=i.value.trim()}
 saveP()});
 if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
-render();
+if(typeof cloudBoot==='function')cloudBoot();render();

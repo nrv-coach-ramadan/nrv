@@ -1,0 +1,3 @@
+[build]
+  publish = "."
+  command = "printf \"window.NRV_SYNC={url:'https://tdckamtjtvwxvxbfjcqh.supabase.co',key:'sb_publishable_8VbbQV5raUvEW0ExWyLlyQ_XF-y3pWM'};\" > sync-config.js"

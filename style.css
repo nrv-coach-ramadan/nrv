@@ -85,3 +85,7 @@ ol{margin:0;padding-inline-start:20px}
 .ci{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#e7f3fc;color:var(--teal)}
 .cx{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:10px}.cx .cfg{grid-column:1/-1}.catp select{flex:1;min-height:44px;font:inherit;border:1px solid var(--hair);border-radius:12px;background:#fff;padding:0 8px}
 .pick button svg{vertical-align:middle}.ok{color:var(--teal);margin-top:6px}
+
+.ex{grid-template-columns:36px 36px 1fr}.ex.meal{grid-template-columns:36px 1fr auto}.src{word-break:break-word}a.src{color:var(--teal);text-decoration:underline}
+
+input{min-width:0;max-width:100%;box-sizing:border-box}label input,.row input{width:100%}.row>*{min-width:0}.gin input{width:76px}

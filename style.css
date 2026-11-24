@@ -81,3 +81,7 @@ ol{margin:0;padding-inline-start:20px}
 .langs .rolebtn{background:rgba(255,255,255,.22);min-width:52px}
 .qbig{display:flex;justify-content:space-between;gap:8px;margin:6px 0}.qbig span{display:flex;flex-direction:column;font-size:12px;color:var(--ink2)}.qbig b{font-size:22px;color:var(--ink)}
 .qcalc{border:2px solid var(--teal)}
+
+.ci{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#e7f3fc;color:var(--teal)}
+.cx{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:10px}.cx .cfg{grid-column:1/-1}.catp select{flex:1;min-height:44px;font:inherit;border:1px solid var(--hair);border-radius:12px;background:#fff;padding:0 8px}
+.pick button svg{vertical-align:middle}.ok{color:var(--teal);margin-top:6px}

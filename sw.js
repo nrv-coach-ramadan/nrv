@@ -1,4 +1,4 @@
-const C='coach-v16';
+const C='coach-v17';
 const A=['./','index.html','style.css','app.js','cloud.js','sync-config.js','foods.js','exercises.js','manifest.webmanifest','icon-192.png','icon-512.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(C).then(c=>c.addAll(A.map(u=>new Request(u,{cache:'reload'})))));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(k=>Promise.all(k.filter(x=>x!==C).map(x=>caches.delete(x)))));self.clients.claim();});
